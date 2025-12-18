@@ -1,0 +1,25 @@
+<p-dialog [header]="isEditing ? 'Editar Produto' : 'Registrar Produto'" [(visible)]="displayModal" [modal]="true" [closable]="true" [style]="{width: '400px'}">
+  <form [formGroup]="produtoForm" (ngSubmit)="saveProduto()" class="flex flex-column gap-3">
+
+    <span class="p-input-icon-left w-full">
+      <input type="text" pInputText placeholder="Descrição" formControlName="description" class="w-full" />
+    </span>
+    <div *ngIf="submitted && f['description'].errors" class="text-red-600 text-sm">
+      <div *ngIf="f['description'].errors['required']">Descrição é obrigatória.</div>
+    </div>
+
+    <span class="p-input-icon-left w-full">
+      <p-inputNumber placeholder="Valor" formControlName="value" class="w-full" mode="decimal" [minFractionDigits]="2"></p-inputNumber>
+    </span>
+    <div *ngIf="submitted && f['value'].errors" class="text-red-600 text-sm">
+      <div *ngIf="f['value'].errors['required']">Valor é obrigatório.</div>
+      <div *ngIf="f['value'].errors['min']">Valor deve ser maior que 0.</div>
+    </div>
+
+      <button pButton type="submit" [label]="isEditing ? 'Atualizar' : 'Registrar'"
+        [icon]="isEditing ? 'pi pi-pencil' : 'pi pi-user-plus'" class="w-full p-button-lg"
+        [style.backgroundColor]="isEditing ? '#FFA500' : '#3DAB23'"
+        [style.borderColor]="isEditing ? '#FFA500' : '#3DAB23'">
+      </button>
+  </form>
+</p-dialog>

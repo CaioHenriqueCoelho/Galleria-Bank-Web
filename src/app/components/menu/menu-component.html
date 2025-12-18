@@ -1,0 +1,58 @@
+<p-toast position="top-right" [baseZIndex]="10000"></p-toast>
+<p-confirmDialog></p-confirmDialog>
+
+<div class="menu-wrapper flex flex-wrap justify-content-center gap-2 mt-2 mb-4">
+  <button 
+    pButton 
+    label="Usuários" 
+    icon="pi pi-users" 
+    class="p-button-success mt-2"
+    [ngClass]="{'active-menu': isActive('users')}"
+    (click)="acessarSecao('users')">
+  </button>
+
+  <button 
+    pButton 
+    label="Clientes" 
+    icon="pi pi-id-card" 
+    class="p-button-success mt-2"
+    [ngClass]="{'active-menu': isActive('customers')}"
+    (click)="acessarSecao('customers')">
+  </button>
+
+  <button 
+    pButton 
+    label="Produtos" 
+    icon="pi pi-box" 
+    class="p-button-success mt-2"
+    [ngClass]="{'active-menu': isActive('products')}"
+    (click)="acessarSecao('products')">
+  </button>
+
+  <button 
+    pButton 
+    label="Pedidos" 
+    icon="pi pi-shopping-cart" 
+    class="p-button-success mt-2"
+    [ngClass]="{'active-menu': isActive('orders')}"
+    (click)="acessarSecao('orders')">
+  </button>
+
+  <button 
+    pButton 
+    icon="pi pi-sign-out" 
+    class="p-button-danger mt-2"
+    pTooltip="Sair" 
+    (click)="logout()">
+  </button>
+</div>
+
+<div class="user-info flex justify-content-center mt-3 align-items-center gap-2">
+  <i class="pi pi-user"></i>
+  <span>
+    <strong>{{ usuarioLogado }}</strong>
+    &nbsp;|&nbsp;
+    {{ horarioAtual }}
+  </span>
+</div>
+

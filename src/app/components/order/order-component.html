@@ -1,0 +1,63 @@
+<p-toast position="top-right" [baseZIndex]="10000"></p-toast>
+<p-confirmDialog></p-confirmDialog>
+
+<div class="flex justify-content-center mt-6 px-8">
+  <div class="w-full max-w-4xl p-p-4 ">
+
+
+    <div class="flex justify-content-between align-items-center mb-3 ">
+      <h2>Pedidos</h2>
+      <button
+        pButton
+        label="Registrar Pedido"
+        icon="pi pi-plus"
+        class="p-button-success"
+        (click)="openRegisterOrder()"
+      ></button>
+    </div>
+
+    <p-table  #ot
+    [value]="orders" 
+    [lazy]="true"
+    [paginator]="true"
+    [rows]="5"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    [totalRecords]="totalElements"
+    (onLazyLoad)="loadOrdersLazy($event)"
+    responsiveLayout="scroll" 
+    class="border-1 border-gray-500 surface-card">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>ID</th>
+          <th>Cliente</th>
+          <th>Total</th>
+          <th>Data</th>
+          <th>Ações</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-order>
+        <tr>
+          <td>{{ order.id }}</td>
+          <td>{{ order.customerName }}</td>
+          <td>{{ order.total | currency:'BRL':'symbol' }}</td>
+          <td>{{ order.createdAt | date:'short' }}</td>
+          <td>
+            <button
+              pButton
+              icon="pi pi-eye"
+              class="p-button-sm p-button-rounded p-button-info"
+              (click)="viewOrder(order)">
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+  </div>
+</div>
+
+<app-order-registration
+  #orderModal
+  (orderSaved)="onOrderSaved()"
+></app-order-registration>

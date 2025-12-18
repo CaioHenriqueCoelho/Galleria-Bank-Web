@@ -1,0 +1,44 @@
+<p-toast position="top-right" [baseZIndex]="10000"></p-toast>
+
+<p-dialog [header]="isEditing ? 'Editar Usuário' : 'Registrar Usuário'" [(visible)]="displayModal" [modal]="true" [closable]="true"
+  [style]="{width: '400px'}">
+  <div class="flex flex-column gap-3">
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-column gap-3">
+
+      <span class="p-input-icon-left w-full">
+        <input type="text" pInputText placeholder="Nome completo" formControlName="name" class="w-full" />
+      </span>
+      <div *ngIf="submitted && f['name'].errors" class="text-red-600 text-sm">
+        <div *ngIf="f['name'].errors['required']">Nome é obrigatório.</div>
+        <div *ngIf="f['name'].errors['minlength']">Nome deve ter ao menos 3 caracteres.</div>
+      </div>
+
+      <span class="p-input-icon-left w-full">
+        <input type="text" pInputText placeholder="Login" formControlName="login" class="w-full" />
+      </span>
+      <div *ngIf="submitted && f['login'].errors" class="text-red-600 text-sm">
+        <div *ngIf="f['login'].errors['required']">Login é obrigatório.</div>
+        <div *ngIf="f['login'].errors['loginExists']">Login já existe.</div>
+      </div>
+
+      <span class="p-input-icon-left w-full">
+        <p-password placeholder="Senha" formControlName="password" [feedback]="false" [toggleMask]="true" styleClass="w-full"
+          inputStyleClass="w-full"></p-password>
+      </span>
+      <div *ngIf="submitted && f['password'].errors" class="text-red-600 text-sm">
+        <div *ngIf="f['password'].errors['required']">Senha é obrigatória.</div>
+        <div *ngIf="f['password'].errors['minlength']">Senha deve ter ao menos 3 caracteres.</div>
+      </div>
+
+      <button pButton type="submit" [label]="isEditing ? 'Atualizar' : 'Registrar'"
+        [icon]="isEditing ? 'pi pi-pencil' : 'pi pi-user-plus'" class="w-full p-button-lg"
+        [style.backgroundColor]="isEditing ? '#FFA500' : '#3DAB23'"
+        [style.borderColor]="isEditing ? '#FFA500' : '#3DAB23'">
+      </button>
+
+
+    </form>
+
+  </div>
+</p-dialog>

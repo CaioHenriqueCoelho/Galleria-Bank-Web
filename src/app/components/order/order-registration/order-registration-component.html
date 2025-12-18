@@ -1,0 +1,49 @@
+<p-dialog [header]="isWatching ? 'Visualizando Pedido: ' + idView  : 'Registrar Pedido'" [(visible)]="displayModal" [modal]="true" [style]="{ width: '600px' }">
+
+    <form [formGroup]="orderForm" (ngSubmit)="saveOrder()" class="flex flex-column gap-3">
+
+        <p-select *ngIf="!isWatching"
+            [options]="customers"
+            optionLabel="name"
+            optionValue="id"
+            placeholder="Selecione o cliente"
+            formControlName="customerId"
+            class="w-full"
+            appendTo="body">
+        </p-select>
+
+        <input type="text" pInputText [value]="nameView" class="w-full h-2rem" disabled *ngIf="isWatching"/>
+
+
+
+        <div formArrayName="items" class="flex flex-column gap-2">
+
+            <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i"
+                class="flex gap-2 align-items-center">
+
+                <p-select 
+                    [options]="products"
+                    optionLabel="description"
+                    optionValue="id"
+                    placeholder="Produto"
+                    formControlName="productId"
+                    class="w-full"
+                    appendTo="body">
+                </p-select>
+
+                <p-inputNumber formControlName="quantity" [min]="1" placeholder="Qtd"></p-inputNumber>
+
+                <button pButton icon="pi pi-trash" class="p-button-danger p-button-sm" type="button"
+                    (click)="removeItem(i)" *ngIf="!isWatching"></button>
+            </div>
+        </div>
+
+        <input type="text" pInputText [value]="totalFormatted" class="w-full h-2rem" disabled *ngIf="isWatching"/>
+
+        <button pButton label="Adicionar Produto" icon="pi pi-plus" type="button" class="p-button-secondary"
+            (click)="addItem()" *ngIf="!isWatching"></button>
+
+        <button pButton type="submit" label="Registrar Pedido" icon="pi pi-check" class="p-button-success" *ngIf="!isWatching"></button>
+
+    </form>
+</p-dialog>

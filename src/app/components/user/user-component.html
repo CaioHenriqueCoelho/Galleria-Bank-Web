@@ -1,0 +1,55 @@
+<p-confirmDialog></p-confirmDialog>
+<p-toast position="top-right" [baseZIndex]="10000"></p-toast>
+
+<div class="flex justify-content-center mt-5 px-8">
+    <div class="w-full max-w-4xl p-p-4">
+
+        <div class="flex justify-content-between align-items-center mb-3">
+            <h2>Usuários</h2>
+            <button pButton label="Registrar Usuário" icon="pi pi-plus" class="p-button-success"
+                (click)="openRegisterUser()">
+            </button>
+        </div>
+
+        <p-table #ut
+        [lazy]="true"
+        [paginator]="true"
+        [rows]="5"
+        [rowsPerPageOptions]="[5, 10, 20]"
+        [totalRecords]="totalElements"
+        (onLazyLoad)="loadUsersLazy($event)"
+        [value]="usuarios"
+        class="border-1 border-gray-500 surface-card">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Login</th>
+                    <th>Ações</th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-usuario>
+                <tr>
+                    <td>{{ usuario.id }}</td>
+                    <td>{{ usuario.name }}</td>
+                    <td>{{ usuario.login }}</td>
+                    <td>
+                        <button pButton icon="pi pi-pencil" class="p-button-sm p-button-rounded p-button-info mr-2"
+                            (click)="editUser(usuario)">
+                        </button>
+                        <button pButton icon="pi pi-trash" class="p-button-sm p-button-rounded p-button-danger"
+                            (click)="confirmDeleteUser(usuario)">
+                        </button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+    </div>
+</div>
+
+<div class="flex justify-content-between align-items-center mb-3">
+    <app-user-registration #registerUserModal (userSaved)="onUserSaved()">
+    </app-user-registration>
+</div>

@@ -1,0 +1,32 @@
+<p-toast position="top-right" [baseZIndex]="10000"></p-toast>
+<div class="login-wrapper flex justify-content-center align-items-center mt-5">
+  <div class="login-card p-shadow-3 p-p-4" style="width: 320px; border-radius: 8px;">
+
+    <div class="login-header text-center mb-4">
+      <img src="assets/images/logo.png" alt="Logo Galleria Bank" style="width: 90%; margin-bottom: 16px;">
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="execLogin()" class="flex flex-column gap-3">
+
+      <input type="text" pInputText placeholder="Usuário" formControlName="login" class="w-full" />
+
+      <p-password placeholder="Senha" formControlName="senha" [feedback]="false" styleClass="w-full"
+        inputStyleClass="w-full"></p-password>
+
+      <button pButton type="submit" label="Entrar" icon="pi pi-sign-in" class="w-full p-button-lg"
+        style="background-color: #3DAB23; border-color: #3DAB23;"></button>
+
+    </form>
+
+
+    <div class="text-center mt-4 items-center">
+      <a (click)="openRegister()"
+        class="text-sm font-medium text-green-600 hover:text-green-800 transition-colors duration-200 cursor-pointer">
+        Ainda não tem conta? <span class="underline">Registre-se</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+    <app-user-registration #registerUserModal>
+    </app-user-registration>

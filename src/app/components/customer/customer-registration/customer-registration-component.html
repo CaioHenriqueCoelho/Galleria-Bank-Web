@@ -1,0 +1,36 @@
+<p-dialog [header]="isEditing ? 'Editar Cliente' : 'Registrar Cliente'" [(visible)]="displayModal" [modal]="true"
+    [closable]="true" [style]="{ width: '400px' }">
+    <form [formGroup]="customerForm" (ngSubmit)="saveCustomer()" class="flex flex-column gap-3">
+
+        <span class="p-input-icon-left w-full">
+            <input type="text" pInputText placeholder="Nome" formControlName="name" class="w-full" />
+        </span>
+        <div *ngIf="submitted && f['name'].errors" class="text-red-600 text-sm">
+            <div *ngIf="f['name'].errors['required']">Nome é obrigatório.</div>
+            <div *ngIf="f['name'].errors['minlength']">
+                Nome deve ter no mínimo 3 caracteres.
+            </div>
+        </div>
+
+        <span class="p-input-icon-left w-full">
+            <p-inputMask mask="999.999.999-99" placeholder="CPF" formControlName="cpf" class="w-full">
+            </p-inputMask>
+
+        </span>
+        <div *ngIf="submitted && f['cpf'].errors" class="text-red-600 text-sm">
+            <div *ngIf="f['cpf'].errors['required']">CPF é obrigatório.</div>
+            <div *ngIf="f['cpf'].errors['pattern']">CPF inválido.</div>
+        </div>
+
+        <span class="p-input-icon-left w-full">
+            <input type="text" pInputText placeholder="Telefone" formControlName="phone" class="w-full" />
+        </span>
+
+        <button pButton type="submit" [label]="isEditing ? 'Atualizar' : 'Registrar'"
+            [icon]="isEditing ? 'pi pi-pencil' : 'pi pi-user-plus'" class="w-full p-button-lg"
+            [style.backgroundColor]="isEditing ? '#FFA500' : '#3DAB23'"
+            [style.borderColor]="isEditing ? '#FFA500' : '#3DAB23'">
+        </button>
+
+    </form>
+</p-dialog>

@@ -1,0 +1,70 @@
+<p-confirmDialog></p-confirmDialog>
+<p-toast position="top-right" [baseZIndex]="10000"></p-toast>
+
+<div class="flex justify-content-center mt-6 px-8">
+  <div class="w-full max-w-4xl p-p-4">
+
+    <div class="flex justify-content-between align-items-center mb-3">
+      <h2>Clientes</h2>
+      <button
+        pButton
+        label="Registrar Cliente"
+        icon="pi pi-plus"
+        class="p-button-success"
+        (click)="openRegisterCustomer()"
+      ></button>
+    </div>
+
+    <p-table #ct
+    [value]="customers"
+    [lazy]="true"
+    [paginator]="true"
+    [rows]="5"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    [totalRecords]="totalElements"
+    (onLazyLoad)="reloadCustomersLazy($event)"
+    responsiveLayout="scroll"
+    class="border-1 border-gray-500 surface-card">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>Telefone</th>
+          <th>Ações</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-customer>
+        <tr>
+          <td>{{ customer.id }}</td>
+          <td>{{ customer.name }}</td>
+          <td>{{ formatCpf(customer.cpf) }}</td>
+          <td>{{ customer.phone || '-' }}</td>
+          <td>
+            <button
+              pButton
+              icon="pi pi-pencil"
+              class="p-button-sm p-button-rounded p-button-info mr-2"
+              (click)="editCustomer(customer)"
+            ></button>
+            <button
+              pButton
+              icon="pi pi-trash"
+              class="p-button-sm p-button-rounded p-button-danger"
+              (click)="deleteCustomer(customer)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+  </div>
+</div>
+
+<div class="flex justify-content-between align-items-center mb-3">
+  <app-customer-registration
+    #registerModal
+    (customerSaved)="reloadCustomers()">
+  </app-customer-registration>
+</div>
