@@ -36,8 +36,7 @@ Siga os passos abaixo para preparar o ambiente de desenvolvimento.
 (Assumindo que você está no diretório onde deseja clonar o projeto)
 
 ```bash
-# Substitua <URL_DO_REPOSITORIO> pela URL real do seu projeto
-git clone <URL_DO_REPOSITORIO> galleria-bank-web
+git clone git@github.com:CaioHenriqueCoelho/Galleria-Bank-Web.git galleria-bank-web
 cd galleria-bank-web
 ```
 
